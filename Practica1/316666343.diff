@@ -1,0 +1,600 @@
+diff --git a/src/main/java/mx/unam/ciencias/edd/Lista.java b/src/main/java/mx/unam/ciencias/edd/Lista.java
+index d55b73b..665a11c 100644
+--- a/src/main/java/mx/unam/ciencias/edd/Lista.java
++++ b/src/main/java/mx/unam/ciencias/edd/Lista.java
+@@ -4,13 +4,19 @@ import java.util.Iterator;
+ import java.util.NoSuchElementException;
+ 
+ /**
+- * <p>Clase genérica para listas doblemente ligadas.</p>
++ * <p>
++ * Clase genérica para listas doblemente ligadas.
++ * </p>
+  *
+- * <p>Las listas nos permiten agregar elementos al inicio o final de la lista,
++ * <p>
++ * Las listas nos permiten agregar elementos al inicio o final de la lista,
+  * eliminar elementos de la lista, comprobar si un elemento está o no en la
+- * lista, y otras operaciones básicas.</p>
++ * lista, y otras operaciones básicas.
++ * </p>
+  *
+- * <p>Las listas no aceptan a <code>null</code> como elemento.</p>
++ * <p>
++ * Las listas no aceptan a <code>null</code> como elemento.
++ * </p>
+  *
+  * @param <T> El tipo de los elementos de la lista.
+  */
+@@ -27,7 +33,9 @@ public class Lista<T> implements Coleccion<T> {
+ 
+         /* Construye un nodo con un elemento. */
+         public Nodo(T elemento) {
+-            // Aquí va su código.
++            this.elemento = elemento;
++            this.anterior = null;
++            this.siguiente = null;
+         }
+     }
+ 
+@@ -40,37 +48,54 @@ public class Lista<T> implements Coleccion<T> {
+ 
+         /* Construye un nuevo iterador. */
+         public Iterador() {
+-            // Aquí va su código.
++            this.anterior = null;
++            this.siguiente = cabeza;
+         }
+ 
+         /* Nos dice si hay un elemento siguiente. */
+-        @Override public boolean hasNext() {
+-            // Aquí va su código.
++        @Override
++        public boolean hasNext() {
++            return (this.siguiente != null);
+         }
+ 
+         /* Nos da el elemento siguiente. */
+-        @Override public T next() {
+-            // Aquí va su código.
++        @Override
++        public T next() {
++            if (!hasNext())
++                throw new NoSuchElementException();
++            this.anterior = this.siguiente;
++            this.siguiente = this.siguiente.siguiente;
++            return this.anterior.elemento;
+         }
+ 
+         /* Nos dice si hay un elemento anterior. */
+-        @Override public boolean hasPrevious() {
+-            // Aquí va su código.
++        @Override
++        public boolean hasPrevious() {
++            return (this.anterior != null);
+         }
+ 
+         /* Nos da el elemento anterior. */
+-        @Override public T previous() {
+-            // Aquí va su código.
++        @Override
++        public T previous() {
++            if (!hasPrevious())
++                throw new NoSuchElementException();
++            this.siguiente = this.anterior;
++            this.anterior = this.anterior.anterior;
++            return this.siguiente.elemento;
+         }
+ 
+         /* Mueve el iterador al inicio de la lista. */
+-        @Override public void start() {
+-            // Aquí va su código.
++        @Override
++        public void start() {
++            this.anterior = null;
++            this.siguiente = cabeza;
+         }
+ 
+         /* Mueve el iterador al final de la lista. */
+-        @Override public void end() {
+-            // Aquí va su código.
++        @Override
++        public void end() {
++            this.siguiente = null;
++            this.anterior = rabo;
+         }
+     }
+ 
+@@ -82,216 +107,430 @@ public class Lista<T> implements Coleccion<T> {
+     private int longitud;
+ 
+     /**
+-     * Regresa la longitud de la lista. El método es idéntico a {@link
+-     * #getElementos}.
++     * Regresa la longitud de la lista. El método es idéntico a
++     * {@link #getElementos}.
++     * 
+      * @return la longitud de la lista, el número de elementos que contiene.
+      */
+     public int getLongitud() {
+-        // Aquí va su código.
++        return this.longitud;
+     }
+ 
+     /**
+-     * Regresa el número elementos en la lista. El método es idéntico a {@link
+-     * #getLongitud}.
++     * Regresa el número elementos en la lista. El método es idéntico a
++     * {@link #getLongitud}.
++     * 
+      * @return el número elementos en la lista.
+      */
+-    @Override public int getElementos() {
+-        // Aquí va su código.
++    @Override
++    public int getElementos() {
++        return getLongitud();
+     }
+ 
+     /**
+      * Nos dice si la lista es vacía.
+-     * @return <code>true</code> si la lista es vacía, <code>false</code> en
+-     *         otro caso.
++     * 
++     * @return <code>true</code> si la lista es vacía, <code>false</code> en otro
++     *         caso.
+      */
+-    @Override public boolean esVacia() {
+-        // Aquí va su código.
++    @Override
++    public boolean esVacia() {
++        return this.cabeza == null;
+     }
+ 
+     /**
+-     * Agrega un elemento a la lista. Si la lista no tiene elementos, el
+-     * elemento a agregar será el primero y último. El método es idéntico a
++     * Agrega un elemento a la lista. Si la lista no tiene elementos, el elemento a
++     * agregar será el primero y último. El método es idéntico a
+      * {@link #agregaFinal}.
++     * 
+      * @param elemento el elemento a agregar.
+      * @throws IllegalArgumentException si <code>elemento</code> es
+-     *         <code>null</code>.
++     *                                  <code>null</code>.
+      */
+-    @Override public void agrega(T elemento) {
+-        // Aquí va su código.
++    @Override
++    public void agrega(T elemento) {
++        if (elemento == null)
++            throw new IllegalArgumentException();
++        Nodo n = new Nodo(elemento);
++        longitud++;
++        if (esVacia()) { // La cabeza y el rabo son el mismo nodo
++            this.cabeza = n;
++            this.rabo = n;
++        } else { // Agrega un nodo después del rabo y actualiza el rabo a ese nodo
++            n.anterior = this.rabo;
++            this.rabo.siguiente = n;
++            this.rabo = n;
++        }
+     }
+ 
+     /**
+-     * Agrega un elemento al final de la lista. Si la lista no tiene elementos,
+-     * el elemento a agregar será el primero y último.
++     * Agrega un elemento al final de la lista. Si la lista no tiene elementos, el
++     * elemento a agregar será el primero y último.
++     * 
+      * @param elemento el elemento a agregar.
+      * @throws IllegalArgumentException si <code>elemento</code> es
+-     *         <code>null</code>.
++     *                                  <code>null</code>.
+      */
+-    public void agregaFinal(T elemento) {
+-        // Aquí va su código.
++    public void agregaFinal(T elemento) { // Mismo metodo al de agrega
++        if (elemento == null) {
++            throw new IllegalArgumentException();
++        }
++        Nodo n = new Nodo(elemento);
++        longitud++;
++        if (esVacia()) {
++            this.cabeza = n;
++            this.rabo = n;
++        } else {
++            n.anterior = this.rabo;
++            this.rabo.siguiente = n;
++            this.rabo = n;
++        }
+     }
+ 
+     /**
+-     * Agrega un elemento al inicio de la lista. Si la lista no tiene elementos,
+-     * el elemento a agregar será el primero y último.
++     * Agrega un elemento al inicio de la lista. Si la lista no tiene elementos, el
++     * elemento a agregar será el primero y último.
++     * 
+      * @param elemento el elemento a agregar.
+      * @throws IllegalArgumentException si <code>elemento</code> es
+-     *         <code>null</code>.
++     *                                  <code>null</code>.
+      */
+     public void agregaInicio(T elemento) {
+-        // Aquí va su código.
++        if (elemento == null)
++            throw new IllegalArgumentException();
++        Nodo n = new Nodo(elemento);
++        longitud++;
++        if (esVacia()) {
++            this.cabeza = n;
++            this.rabo = n;
++        } else { // Agrega un elemento antes de la cabeza y actualiza la cabeza
++            n.siguiente = this.cabeza;
++            this.cabeza.anterior = n;
++            this.cabeza = n;
++        }
+     }
+ 
+     /**
+      * Inserta un elemento en un índice explícito.
+      *
+-     * Si el índice es menor o igual que cero, el elemento se agrega al inicio
+-     * de la lista. Si el índice es mayor o igual que el número de elementos en
+-     * la lista, el elemento se agrega al fina de la misma. En otro caso,
+-     * después de mandar llamar el método, el elemento tendrá el índice que se
+-     * especifica en la lista.
+-     * @param i el índice dónde insertar el elemento. Si es menor que 0 el
+-     *          elemento se agrega al inicio de la lista, y si es mayor o igual
+-     *          que el número de elementos en la lista se agrega al final.
++     * Si el índice es menor o igual que cero, el elemento se agrega al inicio de la
++     * lista. Si el índice es mayor o igual que el número de elementos en la lista,
++     * el elemento se agrega al fina de la misma. En otro caso, después de mandar
++     * llamar el método, el elemento tendrá el índice que se especifica en la lista.
++     * 
++     * @param i        el índice dónde insertar el elemento. Si es menor que 0 el
++     *                 elemento se agrega al inicio de la lista, y si es mayor o
++     *                 igual que el número de elementos en la lista se agrega al
++     *                 final.
+      * @param elemento el elemento a insertar.
+      * @throws IllegalArgumentException si <code>elemento</code> es
+-     *         <code>null</code>.
++     *                                  <code>null</code>.
+      */
+     public void inserta(int i, T elemento) {
+-        // Aquí va su código.
++        if (elemento == null) {
++            throw new IllegalArgumentException();
++        } else if (i < 1) {
++            agregaInicio(elemento);
++        } else if (i > this.longitud - 1) {
++            agregaFinal(elemento);
++        } else {
++            if (0 < i && i <= longitud - 1) { // Se asegura otra vez que el indice esté
++                longitud++; // dentro del rango
++                Nodo s = iesimoNodo(i); // Nodo iesimo el cual va a ser el siguiente nodo del nuevo
++                Nodo n = new Nodo(elemento); // Nodo a agregar a la lista
++                Nodo a = s.anterior; // Nodo anterior al iesimo
++                n.anterior = a;
++                a.siguiente = n; // Agrega el nodo nuevo entre el s y el a
++                n.siguiente = s;
++                s.anterior = n;
++            }
++
++        }
++    }
++
++    /**
++     * Busca el nodo dado un indice
++     * 
++     * @param i Indice del nodo requerido
++     * @return El i-esimo nodo
++     */
++    public Nodo iesimoNodo(int i) {
++        Nodo aux = cabeza;
++        if (0 <= i && i <= longitud - 1) { // Se vuelve a asegurar que el indice se
++            for (int j = 0; j < i; j++) { // encuentre dentro del rango.
++                aux = aux.siguiente; // Recorre la lista hasta el iesimo nodo
++            }
++        }
++        return aux;
+     }
+ 
+     /**
+      * Elimina un elemento de la lista. Si el elemento no está contenido en la
+      * lista, el método no la modifica.
++     * 
+      * @param elemento el elemento a eliminar.
+      */
+-    @Override public void elimina(T elemento) {
+-        // Aquí va su código.
++    @Override
++    public void elimina(T elemento) {
++        if (elemento == null || !contiene(elemento)) {
++            // No hace nada el método y termina
++        } else if (cabeza.elemento.equals(elemento)) {
++            eliminaPrimero(); // Si el primer elemento es la cabeza elimina la cabeza
++        } else if (contiene(elemento)) { // Si el elemento esta contenido en la lista:
++            Nodo aux = cabeza;
++            for (int i = 0; i < longitud - 1; i++) { // Recorre la lista
++                if (aux.elemento.equals(elemento)) { // Encuentra el elemento recorrido con el
++                    aux.anterior.siguiente = aux.siguiente; // pasado como parametro
++                    aux.siguiente.anterior = aux.anterior; // elimina el nodo
++                    longitud--;
++                    return;
++                }
++                aux = aux.siguiente;
++            }
++            eliminaUltimo(); // Sino elimina el ultimo elemento
++        }
+     }
+ 
+     /**
+      * Elimina el primer elemento de la lista y lo regresa.
++     * 
+      * @return el primer elemento de la lista antes de eliminarlo.
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T eliminaPrimero() {
+-        // Aquí va su código.
++        Nodo n = cabeza;
++        if (esVacia()) {
++            throw new NoSuchElementException();
++        } else if (longitud == 1) { // La lista vacia
++            cabeza = null;
++            rabo = null;
++        } else if (longitud == 2) { // La lista con un elemento
++            cabeza = rabo;
++            rabo.anterior = null;
++        } else {
++            cabeza = cabeza.siguiente; // Elimina la cabeza y la actualiza.
++            cabeza.anterior = null;
++        }
++        this.longitud--;
++        return n.elemento;
+     }
+ 
+     /**
+      * Elimina el último elemento de la lista y lo regresa.
++     * 
+      * @return el último elemento de la lista antes de eliminarlo.
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T eliminaUltimo() {
+-        // Aquí va su código.
++        Nodo n = rabo;
++        if (esVacia()) {
++            throw new NoSuchElementException();
++        } else if (longitud == 1) { // La lista vacia
++            cabeza = null;
++            rabo = null;
++        } else if (longitud == 2) { // La lista con un elemento
++            rabo = cabeza;
++            cabeza.siguiente = null;
++        } else {
++            rabo = rabo.anterior; // Elimina el rabo y lo actualiza
++            rabo.siguiente = null;
++        }
++        this.longitud--;
++        return n.elemento;
+     }
+ 
+     /**
+      * Nos dice si un elemento está en la lista.
++     * 
+      * @param elemento el elemento que queremos saber si está en la lista.
+-     * @return <tt>true</tt> si <tt>elemento</tt> está en la lista,
+-     *         <tt>false</tt> en otro caso.
++     * @return <tt>true</tt> si <tt>elemento</tt> está en la lista, <tt>false</tt>
++     *         en otro caso.
+      */
+-    @Override public boolean contiene(T elemento) {
+-        // Aquí va su código.
++    @Override
++    public boolean contiene(T elemento) {
++        if (elemento == null) {
++            throw new IllegalArgumentException();
++        }
++        Nodo aux = cabeza;
++        for (int i = 0; i < longitud; i++) {// Recorre la lista en busca de un
++            if (aux.elemento.equals(elemento)) { // nodo con el mismo elemento
++                return true;
++            }
++            aux = aux.siguiente;
++        }
++        return false;
+     }
+ 
+     /**
+      * Regresa la reversa de la lista.
++     * 
+      * @return una nueva lista que es la reversa la que manda llamar el método.
+      */
+     public Lista<T> reversa() {
+-        // Aquí va su código.
++        Lista<T> rev = new Lista<T>();
++        Nodo aux = cabeza;
++        for (int i = 0; i < longitud; i++) { // Añade los nuevos elementos
++            rev.agregaInicio(aux.elemento); // al principio
++            aux = aux.siguiente;
++        }
++        return rev;
+     }
+ 
+     /**
+      * Regresa una copia de la lista. La copia tiene los mismos elementos que la
+      * lista que manda llamar el método, en el mismo orden.
++     * 
+      * @return una copiad de la lista.
+      */
+     public Lista<T> copia() {
+-        // Aquí va su código.
++        Lista<T> copy = new Lista<T>();
++        Nodo aux = cabeza;
++        for (int i = 0; i < longitud; i++) { // Recorre la lista y conforme la recorre
++            copy.agrega(aux.elemento); // agrega los elementos a la nueva lista
++            aux = aux.siguiente;
++        }
++        return copy;
+     }
+ 
+     /**
+      * Limpia la lista de elementos, dejándola vacía.
+      */
+-    @Override public void limpia() {
+-        // Aquí va su código.
++    @Override
++    public void limpia() { // Reinicia la lista
++        this.cabeza = null;
++        this.rabo = null;
++        this.longitud = 0;
+     }
+ 
+     /**
+      * Regresa el primer elemento de la lista.
++     * 
+      * @return el primer elemento de la lista.
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T getPrimero() {
+-        // Aquí va su código.
++        if (esVacia()) {
++            throw new NoSuchElementException();
++        }
++        return this.cabeza.elemento;
+     }
+ 
+     /**
+      * Regresa el último elemento de la lista.
++     * 
+      * @return el primer elemento de la lista.
+      * @throws NoSuchElementException si la lista es vacía.
+      */
+     public T getUltimo() {
+-        // Aquí va su código.
++        if (esVacia()) {
++            throw new NoSuchElementException();
++        }
++        return this.rabo.elemento;
+     }
+ 
+     /**
+      * Regresa el <em>i</em>-ésimo elemento de la lista.
++     * 
+      * @param i el índice del elemento que queremos.
+      * @return el <em>i</em>-ésimo elemento de la lista.
+      * @throws ExcepcionIndiceInvalido si <em>i</em> es menor que cero o mayor o
+-     *         igual que el número de elementos en la lista.
++     *                                 igual que el número de elementos en la lista.
+      */
+     public T get(int i) {
+-        // Aquí va su código.
++        if (i >= longitud || i < 0) {
++            throw new ExcepcionIndiceInvalido();
++        }
++        Nodo aux = cabeza; // Recorre la lista hasta que el indice buscado sea
++        for (int j = 0; j < longitud; j++) { // igual al nodo recorrido
++            if (j == i) {
++                break;
++            }
++            aux = aux.siguiente;
++        }
++        return aux.elemento;
+     }
+ 
+     /**
+      * Regresa el índice del elemento recibido en la lista.
++     * 
+      * @param elemento el elemento del que se busca el índice.
+-     * @return el índice del elemento recibido en la lista, o -1 si el elemento
+-     *         no está contenido en la lista.
++     * @return el índice del elemento recibido en la lista, o -1 si el elemento no
++     *         está contenido en la lista.
+      */
+     public int indiceDe(T elemento) {
+-        // Aquí va su código.
++        if (elemento == null) {
++            throw new IllegalArgumentException();
++        }
++        Nodo n = cabeza;
++        for (int i = 0; i < longitud; i++) { // Recorre la lista, la cantidad de veces necesaria
++            if (elemento.equals(n.elemento)) { // hasta encontrar el elemento y regresa el indice
++                return i;
++            }
++            n = n.siguiente;
++        }
++        return -1; // Si no lo encuentra regresa -1
+     }
+ 
+     /**
+      * Regresa una representación en cadena de la lista.
++     * 
+      * @return una representación en cadena de la lista.
+      */
+-    @Override public String toString() {
+-        // Aquí va su código.
++    @Override
++    public String toString() {
++        if (longitud == 0) {
++            return "[]"; // La lista vacia
++        }
++        String res = "[";
++        Nodo aux = cabeza;
++        for (int i = 0; i < longitud; i++) {
++            if (i == longitud - 1) {
++                res = res + aux.elemento + "]"; // Si es el ultimo elemento
++            } else {
++                res = res + aux.elemento + ", "; // Si es la cabeza o algun elemento
++                aux = aux.siguiente; // intermedio
++            }
++        }
++        return res;
+     }
+ 
+     /**
+      * Nos dice si la lista es igual al objeto recibido.
++     * 
+      * @param objeto el objeto con el que hay que comparar.
+-     * @return <tt>true</tt> si la lista es igual al objeto recibido;
+-     *         <tt>false</tt> en otro caso.
++     * @return <tt>true</tt> si la lista es igual al objeto recibido; <tt>false</tt>
++     *         en otro caso.
+      */
+-    @Override public boolean equals(Object objeto) {
++    @Override
++    public boolean equals(Object objeto) {
+         if (objeto == null || getClass() != objeto.getClass())
+             return false;
+-        @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
+-        // Aquí va su código.
++        @SuppressWarnings("unchecked")
++        Lista<T> lista = (Lista<T>) objeto;
++        if (lista.longitud != this.longitud) // Una lista es igual a otra si tiene la misma
++            return false; // longitud
++        Nodo aux = this.cabeza;
++        for (int i = 0; aux != null; i++) { // Recorre nodo con nodo y compara
++            if (!aux.elemento.equals(lista.get(i))) // elemento a elemento
++                return false;
++            aux = aux.siguiente;
++        }
++        return true;
+     }
+ 
+     /**
+      * Regresa un iterador para recorrer la lista en una dirección.
++     * 
+      * @return un iterador para recorrer la lista en una dirección.
+      */
+-    @Override public Iterator<T> iterator() {
++    @Override
++    public Iterator<T> iterator() {
+         return new Iterador();
+     }
+ 
+     /**
+      * Regresa un iterador para recorrer la lista en ambas direcciones.
++     * 
+      * @return un iterador para recorrer la lista en ambas direcciones.
+      */
+     public IteradorLista<T> iteradorLista() {
