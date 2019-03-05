@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Practica3",
+            "request": "launch",
+            "mainClass": "mx.unam.ciencias.edd.Practica3",
+            "projectName": "src_68f10cf9"
+        }
+    ]
+}
