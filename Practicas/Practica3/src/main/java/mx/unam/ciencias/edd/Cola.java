@@ -7,9 +7,11 @@ public class Cola<T> extends MeteSaca<T> {
 
     /**
      * Regresa una representación en cadena de la cola.
+     * 
      * @return una representación en cadena de la cola.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
         String res = "";
         Nodo aux = cabeza;
         while (aux != null) {
@@ -21,11 +23,13 @@ public class Cola<T> extends MeteSaca<T> {
 
     /**
      * Agrega un elemento al final de la cola.
+     * 
      * @param elemento el elemento a agregar.
      * @throws IllegalArgumentException si <code>elemento</code> es
-     *         <code>null</code>.
+     *                                  <code>null</code>.
      */
-    @Override public void mete(T elemento) {
+    @Override
+    public void mete(T elemento) {
         if (elemento == null)
             throw new IllegalArgumentException();
         Nodo n = new Nodo(elemento);
