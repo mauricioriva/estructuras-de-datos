@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<svg width="50" height="25">
+  <rect x="0" y="0" width="50" height="25" style="fill:white;stroke:black;stroke-width:2;stroke-opacity:1" />
+  <text fill='black' font-family='sans-serif' font-size='12' x='25' y='17' text-anchor='middle'>Hola</text>
+</svg>
+
+</body>
+</html>
+
