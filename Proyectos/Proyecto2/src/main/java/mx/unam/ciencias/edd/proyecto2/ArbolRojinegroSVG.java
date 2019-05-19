@@ -22,18 +22,9 @@ public class ArbolRojinegroSVG implements ArbolGrafico{
 	 * @return El ancho del SVG
 	 */
 	public int width(VerticeArbolBinario<Integer> raiz) {
-		VerticeArbolBinario<Integer> aux = raiz;
-		VerticeArbolBinario<Integer> aux2 = raiz;
-		int cont = 50;
-		while (aux.hayIzquierdo()) {
-			cont = cont + 100;
-			aux = aux.izquierdo();
-		}
-		while (aux2.hayDerecho()) {
-			cont = cont + 100;
-			aux2 = aux2.derecho();
-		}
-		return cont;
+		int cont = ab.getElementos();
+		int res = (int)(50 * Math.pow(2,ab.altura()));
+		return res;
 	}
 
 	/**
