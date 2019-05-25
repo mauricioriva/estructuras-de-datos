@@ -3,25 +3,25 @@ Estructuras de Datos
 
 Todas las estructuras vistas en el curso:
 
-* `ArbolAVL.java`,
-* `ArbolBinarioCompleto.java`,
-* `ArbolBinarioOrdenado.java`,
-* `ArbolBinario.java`,
-* `ArbolRojinegro.java`,
-* `Arreglos.java`,
-* `Cola.java`,
-* `Conjunto.java`,
-* `Diccionario.java`,
-* `Dispersores.java`,
-* `Grafica.java`,
-* `Lista.java`,
-* `MeteSaca.java`,
-* `MonticuloArreglo.java`,
-* `MonticuloMinimo.java`,
-* `Pila.java` y
-* `ValorIndexable.java`.
+* `ArbolAVL`,
+* `ArbolBinarioCompleto`,
+* `ArbolBinarioOrdenado`,
+* `ArbolBinario`,
+* `ArbolRojinegro`,
+* `Arreglos`,
+* `Cola`,
+* `Conjunto`,
+* `Diccionario`,
+* `Dispersores`,
+* `Grafica`,
+* `Lista`,
+* `MeteSaca`,
+* `MonticuloArreglo`,
+* `MonticuloMinimo`,
+* `Pila`
+* `ValorIndexable`.
 
-*No deben modificar de ninguna manera ninguno de los otros archivos*.
+*No se debe modificar de ninguna manera ninguno de los otros archivos*.
 
 ### Curso basado en el libro:
 
