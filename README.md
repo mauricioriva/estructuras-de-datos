@@ -25,8 +25,6 @@ Todas las estructuras vistas en el curso:
 
 ### Curso basado en el libro:
 
-El capítulo
-[del libro](https://tienda.fciencias.unam.mx/es/home/437-estructuras-de-datos-con-java-moderno-9786073009157.html)
-relacionado a esta práctica es:
+[ESTRUCTURAS DE DATOS CON JAVA MODERNO](https://tienda.fciencias.unam.mx/es/home/437-estructuras-de-datos-con-java-moderno-9786073009157.html)
 
-23. Mejorando gráficas
+*Creditos al autor del libro por impartir el curso, y diseñar todas las clases.*
