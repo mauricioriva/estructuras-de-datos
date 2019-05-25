@@ -4,18 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>mx.unam.ciencias.edd.proyecto2</groupId>
-  <artifactId>proyecto</artifactId>
+  <groupId>mx.unam.ciencias.edd</groupId>
+  <artifactId>practica</artifactId>
   <version>EDD</version>
   <packaging>jar</packaging>
 
-  <name>Proyecto 2</name>
+  <name>Práctica 12</name>
   <description>
-    Proyecto 2 de Estructuras de Datos: Graficador de las Estructuras de Datos.
+    Práctica 12 de Estructuras de Datos: Revisando gráficas.
   </description>
-  <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/curso/wikis/Proyectos/Proyecto%202</url>
+  <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/practica12</url>
   <organization>
-    <name>mauricioriva</name>
+    <name>Canek Peláez Valdés</name>
+    <url>https://aztlan.fciencias.unam.mx/~canek/</url>
   </organization>
 
   <build>
@@ -42,11 +43,9 @@
 	<artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
 	<configuration>
-    <finalName>proyecto2</finalName>
-    <outputDirectory>target/..</outputDirectory>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto2.Proyecto2</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.Practica12</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
@@ -64,25 +63,9 @@
         <version>3.0.0</version>
       </plugin>
 
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>target/..</directory>
-              <includes>
-                <include>proyecto2.jar</include>
-              </includes>
-              <followSymlinks>false</followSymlinks>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-
     </plugins>
 
-    <finalName>proyecto2</finalName>
+    <finalName>practica12</finalName>
   </build>
 
   <reporting>

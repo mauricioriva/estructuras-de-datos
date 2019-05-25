@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>mx.unam.ciencias.edd.proyecto2</groupId>
+  <groupId>mx.unam.ciencias.edd.proyecto1</groupId>
   <artifactId>proyecto</artifactId>
   <version>EDD</version>
   <packaging>jar</packaging>
 
-  <name>Proyecto 2</name>
+  <name>Proyecto 1</name>
   <description>
-    Proyecto 2 de Estructuras de Datos: Graficador de las Estructuras de Datos.
+    Proyecto 1 de Estructuras de Datos: Ordenador Lexicográfico.
   </description>
-  <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/curso/wikis/Proyectos/Proyecto%202</url>
+  <url>https://aztlan.fciencias.unam.mx/gitlab/2019-2-edd/curso/wikis/Proyectos/Proyecto%201</url>
   <organization>
     <name>mauricioriva</name>
   </organization>
@@ -42,11 +42,11 @@
 	<artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
 	<configuration>
-    <finalName>proyecto2</finalName>
+    <finalName>proyecto1</finalName>
     <outputDirectory>target/..</outputDirectory>
 	  <archive>
 	    <manifest>
-	      <mainClass>mx.unam.ciencias.edd.proyecto2.Proyecto2</mainClass>
+	      <mainClass>mx.unam.ciencias.edd.proyecto1.Proyecto1</mainClass>
 	    </manifest>
 	  </archive>
 	</configuration>
@@ -72,7 +72,7 @@
             <fileset>
               <directory>target/..</directory>
               <includes>
-                <include>proyecto2.jar</include>
+                <include>proyecto1.jar</include>
               </includes>
               <followSymlinks>false</followSymlinks>
             </fileset>
@@ -82,7 +82,7 @@
 
     </plugins>
 
-    <finalName>proyecto2</finalName>
+    <finalName>proyecto1</finalName>
   </build>
 
   <reporting>

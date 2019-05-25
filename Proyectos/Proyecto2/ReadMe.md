@@ -1,8 +1,6 @@
 
 Proyecto 2 Estructuras de Datos con su representación en SVG 
 
-Mauricio Riva Palacio Orozco 316666343
-
 Las estructuras que puede representar el programa son: ArbolBinario, ArbolBinarioOrdenado, ArbolBinarioCompleto, ArbolRojinegro,
 ArbolAVL, Lista, Pila, Cola, Arreglo, MonticuloMinimo y MonticuloArreglo.
 
